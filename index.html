@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Домашняя работа 15-1</title>
+<style>
+:root { --paper:#F5EFE5; --card:#FFFCF6; --ink:#49352F; --ink2:#7A6458; --indigo:#34496A; --ochre:#C49A55; --ochre-text:#8E6A2C; --ochre-soft:#F3EADB; --sand:#D8C5AD; --line:#B9A38A; --field:#FFFFFF; --ok:#3F6B4A; --bad:#9A3B3B; --hint:#8E6A2C; --on-indigo:#FFFFFF;
+  --ru: Verdana, "NanumGothic", "Apple SD Gothic Neo", sans-serif; --head: Georgia, "NanumGothic", serif; --ko: "NanumGothic", "Nanum Gothic", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper:#1F1A17; --card:#2A2420; --ink:#EFE6DA; --ink2:#C2B3A2; --indigo:#9DB2D6; --ochre-text:#D7B375; --ochre-soft:#3A3024; --sand:#4E4339; --line:#76685A; --field:#1A1613; --ok:#8CC49A; --bad:#E59A9A; --on-indigo:#14181F; color-scheme: dark; } }
+body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.55 var(--ru); }
+h1,h2,h3 { font-family:var(--head); font-weight:700; margin:0; color:var(--ink); text-wrap:balance; }
+.wrap { max-width:720px; margin:0 auto; padding-block:20px 48px; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); }
+.kicker { font-size:12px; color:var(--ink2); letter-spacing:.04em; }
+.head h1 { font-size:30px; line-height:1.15; margin-top:4px; }
+.sub { font-family:var(--ko); color:var(--indigo); font-size:17px; margin-top:4px; }
+.intro { margin:14px 0 0; font-size:14px; color:var(--ink2); }
+.plan { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:16px 0 22px; }
+.step { background:var(--card); border:1px solid var(--sand); border-radius:12px; padding:12px; }
+.step b { display:block; font-family:var(--head); font-size:20px; color:var(--indigo); }
+.step span { display:block; font-size:12px; color:var(--ochre-text); font-weight:700; }
+.step em { display:block; font-style:normal; font-size:13px; margin-top:4px; }
+.note { background:var(--ochre-soft); border-radius:12px; padding:12px 14px; margin:0 0 22px; font-size:14px; }
+.block { background:var(--card); border:1px solid var(--sand); border-radius:16px; padding:18px; margin:0 0 20px; }
+.block-head { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; border-bottom:2px solid var(--ink); padding-bottom:8px; }
+.block-head h2 { font-size:21px; min-width:0; }
+.block-head small { color:var(--ink2); font-size:12px; margin-left:auto; }
+.task { margin-top:18px; }
+.task-q { display:flex; gap:10px; font-weight:700; font-size:15px; }
+.task-q > span:last-child { min-width:0; }
+.task-n { font-family:var(--head); color:var(--ochre-text); min-width:34px; }
+.task-body { margin:10px 0 0 44px; min-width:0; }
+.hint { font-size:13px; color:var(--ink2); margin:0 0 8px; }
+.text { font-family:var(--ko); font-size:17px; line-height:1.8; background:var(--paper); border-radius:10px; padding:10px 12px; margin:0 0 8px; word-break:keep-all; }
+.bank { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 6px; }
+.bank span { font-family:var(--ko); background:var(--paper); border:1px solid var(--sand); border-radius:999px; padding:3px 10px; font-size:15px; }
+.it { position:relative; margin:8px 0; }
+.row { display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center; }
+.row > span, .ko { font-family:var(--ko); word-break:keep-all; }
+input[type=text], select, textarea { font:inherit; font-family:var(--ko); font-size:17px; color:var(--ink); background:var(--field); border:1px solid var(--line); border-radius:8px; padding:6px 8px; min-width:0; max-width:100%; box-sizing:border-box; }
+input[type=text] { width:8.5em; }
+input.wide { width:100%; }
+textarea { width:100%; min-height:120px; }
+.people { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; }
+.person { text-align:center; }
+.person img { width:92px; height:92px; border-radius:50%; object-fit:cover; border:2px solid var(--sand); background:var(--paper); }
+.person .num { display:inline-block; background:var(--indigo); color:var(--on-indigo); border-radius:50%; width:24px; height:24px; line-height:24px; font-size:12px; font-family:var(--head); margin-top:-12px; position:relative; }
+.person input { margin-top:6px; width:100%; text-align:center; }
+.sortrow { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:6px 0; border-bottom:1px dashed var(--line); }
+.sortrow span { font-family:var(--ko); font-size:17px; }
+.opt { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); background:var(--field); border-radius:999px; padding:7px 12px; font-family:var(--ko); font-size:16px; cursor:pointer; margin:4px 6px 0 0; }
+.opt input { accent-color:var(--indigo); }
+.mark { display:inline-block; min-width:22px; font-weight:700; margin-left:6px; }
+.ok { color:var(--ok); } .bad { color:var(--bad); } .wait { color:var(--ink2); }
+.answer { display:block; font-size:13px; margin-top:2px; font-family:var(--ko); }
+.answer.bad { color:var(--bad); } .answer.tip { color:var(--hint); font-family:var(--ru); }
+.check { margin-top:16px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+button, a.btn { font:inherit; font-family:var(--ru); font-size:15px; border-radius:999px; border:1px solid var(--indigo); background:var(--field); color:var(--indigo); padding:9px 16px; cursor:pointer; text-decoration:none; display:inline-block; }
+button.primary, a.primary { background:var(--indigo); color:var(--on-indigo); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:2px solid var(--ochre); outline-offset:2px; }
+.msg { font-size:14px; color:var(--ink2); }
+.printopts { display:none; }
+.send { background:var(--card); border:1px solid var(--sand); border-radius:16px; padding:18px; margin-top:10px; }
+.send p { margin:0 0 12px; font-size:14px; color:var(--ink2); }
+.foot { margin-top:26px; font-size:11px; color:var(--ink2); display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+.sq i { display:inline-block; width:10px; height:10px; margin-right:2px; border-radius:2px; }
+@media (max-width:480px) { .task-body { margin-left:0; } }
+@media print {
+  @page { size: A4; margin: 14mm; }
+  .printopts { display:inline; font-family:var(--ko); font-size:15px; }
+  :root { --paper:#FFFFFF; --card:#FFFFFF; --field:#FFFFFF; }
+  body { background:#fff; color:#000; }
+  .wrap { max-width:none; padding:0; }
+  .block { border:none; padding:6px 0 10px; page-break-inside:auto; }
+  .block-head { page-break-after:avoid; }
+  .block + .block { break-before:page; }
+  .task { page-break-inside:avoid; }
+  .no-print, .check, .msg, .answer, .mark, .send { display:none !important; }
+  input[type=text] { border:none; border-bottom:1px solid #000; border-radius:0; background:none; width:7em; }
+  input.wide { width:100%; }
+  select { appearance:none; -webkit-appearance:none; border:none; border-bottom:1px solid #000; border-radius:0; background:none; min-width:6em; color:transparent; }
+  textarea { border:1px solid #000; background:none; min-height:70px; }
+  .opt { border:1px solid #000; background:none; }
+  .bank span, .text { background:none; }
+}
+</style></head><body>
+<div class="wrap">
+  <header class="head">
+    <div class="kicker">SoftKoreanStudio · 서울대 1B · урок 15-1</div>
+    <h1>Домашняя работа</h1>
+    <div class="sub">아버지는 산에 자주 가세요</div>
+    <p class="intro">Четыре коротких блока по 10-15 минут. Можно делать по частям и в любом порядке, удобно до следующего урока.</p>
+  </header>
+  <div class="plan"><div class="step"><b>1</b><span>День 1</span><em>Лексика: семья</em></div><div class="step"><b>2</b><span>День 2–3</span><em>Вежливо о старших</em></div><div class="step"><b>3</b><span>День 4–5</span><em>Кому? 한테 / 께</em></div><div class="step"><b>4</b><span>День 6–7</span><em>«Моя семья», TOPIK, «Я могу»</em></div></div>
+  <div class="note no-print"><b>Как заполнять.</b> Пишите ответы прямо на этой странице, с телефона или компьютера. Ответы сохраняются на этом устройстве. Кнопка «Проверить блок» покажет ✓ или ✗: при первой ошибке появится подсказка, при второй - правильный ответ. Когда будете готовы, отправьте ответы преподавателю кнопкой внизу. Если удобнее на бумаге, можно распечатать PDF и прислать фото листа.</div>
+  <main id="app"></main>
+  <section class="send no-print">
+    <h2 style="font-size:19px;margin-bottom:8px">Отправить преподавателю</h2>
+    <p>Ответы уходят только в Telegram по кнопке ниже, на этот сайт ничего не передаётся. Рассказ из блока 4 можно отправить и голосовым сообщением.</p>
+    <div class="row"><a class="btn primary" id="send" target="_blank" rel="noopener" href="https://t.me/share/url?text=">Отправить в Telegram</a><button type="button" id="copy">Копировать ответы</button><span class="msg" id="sendmsg" role="status"></span></div>
+  </section>
+  <div class="foot"><span><span class="sq"><i style="background:#34496A"></i><i style="background:#D8C5AD"></i><i style="background:#C49A55"></i><i style="background:#E7B1B7"></i></span> SoftKoreanStudio · Домашняя работа 15-1</span><span>Спасибо за старание! 수고하셨어요!</span></div>
+</div>
+<script>
+(function () {
+  var KEY = 'snu-hw-15-1';
+  var B = [{"id":"b1","name":"Блок 1 · Лексика: семья","when":"День 1 · в течение 24 часов","tasks":[{"id":"1.1","type":"tree","q":"Это семья Арсения. Подпишите, кто есть кто.","bank":["나","남동생","누나","아버지","어머니","할머니","할아버지"],"tip":"Вспомните слова урока: кто старше всех? кто на фото рядом с Арсением?","items":[{"n":"1","img":"portraits/family-1.png","a":"할아버지"},{"n":"2","img":"portraits/family-2.png","a":"할머니"},{"n":"3","img":"portraits/family-3.png","a":"아버지"},{"n":"4","img":"portraits/family-4.png","a":"어머니"},{"n":"5","img":"portraits/family-5.png","a":"누나"},{"n":"6","img":"portraits/family-6.png","a":"나"},{"n":"7","img":"portraits/family-7.png","a":"남동생"}]},{"id":"1.2","type":"sort","q":"남자예요? 여자예요? Распределите слова.","tip":"Подумайте, о ком говорит слово: о мужчине или о женщине.","items":[{"w":"아들","a":"m"},{"w":"누나","a":"f"},{"w":"오빠","a":"m"},{"w":"아내","a":"f"},{"w":"할머니","a":"f"},{"w":"남편","a":"m"},{"w":"언니","a":"f"},{"w":"딸","a":"f"},{"w":"형","a":"m"},{"w":"어머니","a":"f"}]},{"id":"1.3","type":"fill","q":"Я Арсений, мне 22 года. Кто это для меня?","tip":"의 - «чей»: 어머니의 남편 - муж мамы. Для 25 лет и 19 лет сравните возраст с моим.","items":[{"pre":"우리 어머니의 남편 →","a":"아버지","alts":[]},{"pre":"우리 아버지의 어머니 →","a":"할머니","alts":[]},{"pre":"Дочь наших родителей, 25 лет →","a":"누나","alts":[]},{"pre":"Сын наших родителей, 19 лет →","a":"남동생","alts":[]},{"pre":"우리 할머니의 남편 →","a":"할아버지","alts":[]}]}]},{"id":"b2","name":"Блок 2 · Вежливо о старших: -(으)세요 / (이)세요","when":"День 2–3 · через 1–2 дня","tasks":[{"id":"2.1","type":"choose","q":"Выберите правильный вариант.","hint":"О себе и о друге-ровеснике: 예요 / 이에요. О родителях, бабушке, дедушке, директоре: 세요 / 이세요. О 형 · 누나 · 오빠 · 언니 обычно без 세요.","tip":"Кто это: Вы, друг или уважаемый человек?","items":[{"pre":"저는 요리사","opts":["예요","세요"],"post":".","a":"예요"},{"pre":"우리 어머니는 간호사","opts":["예요","세요"],"post":".","a":"세요"},{"pre":"제 동생은 학생","opts":["이에요","이세요"],"post":".","a":"이에요"},{"pre":"우리 팀장님은 한국 사람","opts":["이에요","이세요"],"post":".","a":"이세요"},{"pre":"저는 회사원","opts":["이에요","이세요"],"post":".","a":"이에요"},{"pre":"할아버지는 기자","opts":["예요","세요"],"post":".","a":"세요"}]},{"id":"2.2","type":"fill","q":"Скажите вежливо о старших.","hint":"Если основа заканчивается на ㄹ, то перед 세요 ㄹ уходит (살다 → 사세요).","tip":"Нужна основа + 세요 / 으세요. Есть ли у основы опорная согласная (받침)?","items":[{"pre":"운동해요 →","a":"운동하세요","alts":[]},{"pre":"웃어요 →","a":"웃으세요","alts":[]},{"pre":"만들어요 →","a":"만드세요","alts":[]},{"pre":"아파요 →","a":"아프세요","alts":["편찮으세요"]},{"pre":"와요 →","a":"오세요","alts":[]},{"pre":"앉아요 →","a":"앉으세요","alts":[]},{"pre":"의사가 아니에요 →","a":"의사가 아니세요","alts":[]}]},{"id":"2.3","type":"fill","q":"Это рассказ о друге. Перепишите его о папе: вставьте окончания.","text":"이 사람은 제 친구예요. 요리사예요. 지금 부산에 살아요. 친구는 축구를 좋아해요. 그래서 주말에 운동장에 자주 가요.","tip":"Папа - уважаемый человек: нужно -(으)세요.","items":[{"pre":"이분은 우리 아버지세요.","a":null},{"pre":"요리사 1)","post":".","a":"세요"},{"pre":"지금 부산에 2)","post":".","a":"사세요"},{"pre":"우리 아버지는 축구를 3)","post":".","a":"좋아하세요"},{"pre":"그래서 주말에 운동장에 자주 4)","post":".","a":"가세요"}]}]},{"id":"b3","name":"Блок 3 · Кому? 한테 / 께","when":"День 4–5 · через 3–4 дня","tasks":[{"id":"3.1","type":"fill","q":"Вставьте 께, 한테 или 에.","hint":"께 - вежливо, уважаемому человеку. 한테 - другу, младшему. 에 - место (компания, школа).","tip":"Это человек или место? Если человек - уважаемый ли?","items":[{"pre":"저는 선생님","post":" 질문해요.","a":"께","alts":[]},{"pre":"룸메이트","post":" 책을 줘요.","a":"한테","alts":["에게"]},{"pre":"반장님","post":" 전화해요.","a":"께","alts":[]},{"pre":"회사","post":" 메일을 보내요.","a":"에","alts":[]},{"pre":"남편","post":" 사진을 보내요.","a":"한테","alts":["에게"]},{"pre":"할아버지","post":" 선물을 드려요.","a":"께","alts":[]}]},{"id":"3.2","type":"sentence","q":"Составьте предложение: кто → кому, что.","tip":"Кто? кому (께 / 한테)? что (을 / 를)? глагол (드려요 / 줘요 / 주세요).","hint":"Пример: Вы → друг: фото (보내다) → 저는 친구한테 사진을 보내요. «저는» можно опустить.","items":[{"hint":"Вы → мама: цветы (드리다)","a":"저는 어머니께 꽃을 드려요."},{"hint":"Вы → младший брат: книга (주다)","a":"저는 동생한테 책을 줘요."},{"hint":"руководитель группы → Вы: печенье (주다)","a":"팀장님이 저한테 과자를 주세요."},{"hint":"Вы → бабушка: одежда (드리다)","a":"저는 할머니께 옷을 드려요."}]},{"id":"3.3","type":"choose","q":"Выберите верный вариант.","hint":"드리다 - вежливо, кому-то уважаемому. 주다 - обычно. 주세요 - уважаемый человек даёт.","tip":"Кто дарит и кому: уважаемый человек?","items":[{"pre":"저는 사장님께 커피를 ","opts":["줘요","드려요"],"post":".","a":"드려요"},{"pre":"저는 친구한테 커피를 ","opts":["줘요","드려요"],"post":".","a":"줘요"},{"pre":"어머니가 저한테 김치를 ","opts":["주세요","드려요"],"post":".","a":"주세요"}]}]},{"id":"b4","name":"Блок 4 · «Моя семья», TOPIK и «Я могу»","when":"День 6–7 · в конце недели","tasks":[{"id":"4.1","type":"my","q":"Моя семья. Ответьте 3-4 фразами: текстом здесь или голосовым сообщением в Telegram.","hint":"Опоры: 우리 가족은 ___ 명이에요. · 가족은 ___에 있어요. · 우리 ___은/는 ___(이)세요. · ___을/를 좋아하세요. · 자주 영상 통화를 해요.","items":[{}]},{"id":"4.2","type":"mcq","q":"Задания в формате TOPIK. Выберите ответ.","tip":"Прочитайте текст ещё раз и найдите нужное слово.","items":[{"q":"1) О чём этот текст?","text":"우리 아버지는 회사원이세요. 어머니는 선생님이세요.","opts":["① 가족","② 음식","③ 날씨","④ 쇼핑"],"a":0},{"q":"2) Выберите, что подходит в скобки.","text":"저는 주말마다 고향 집(   ) 전화해요.","opts":["① 께","② 를","③ 에","④ 가"],"a":2},{"q":"3) Прочитайте и выберите, что совпадает с текстом.","text":"저는 한국에서 일해요. 가족은 러시아에 있어요. 자주 못 만나지만 매일 영상 통화를 해요. 부모님은 영상 통화를 아주 좋아하세요.","opts":["① 저는 러시아에서 일해요.","② 가족은 한국에 있어요.","③ 저는 가족하고 매일 영상 통화를 해요.","④ 부모님은 한국에 자주 오세요."],"a":2}]},{"id":"4.3","type":"can","q":"Я могу…","hint":"Отметьте честно: это сигнал, что повторим, а не оценка.","items":[{"s":"назвать членов своей семьи"},{"s":"вежливо рассказать о родителях"},{"s":"ответить коллеге, где моя семья и как мы общаемся"},{"s":"сказать, кому звоню или пишу"}]}]}];
+  var CAN = ['пока не могу', 'с помощью', 'могу'];
+  var S = {};
+  try { S = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { S = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function norm(s) { return String(s || '').replace(/\s+/g, '').replace(/[.!?,]/g, '').trim(); }
+  // предложение 3.2: убираем «я», приводим допустимые варианты к одному виду, сравниваем набор частей без порядка
+  function sentKey(s) {
+    s = norm(s).replace(/저는|제가|저가/g, '').replace(/에게/g, '한테').replace(/엄마/g, '어머니')
+      .replace(/남동생|여동생/g, '동생').replace(/팀장님께서|팀장님은|팀장님는/g, '팀장님이')
+      .replace(/드립니다/g, '드려요').replace(/줍니다/g, '줘요').replace(/주십니다/g, '주세요');
+    return s.replace(/(한테|께|을|를|이|가)/g, '$1|').split('|').filter(Boolean).sort().join('|');
+  }
+  function val(tid, i) { return (S[tid] && S[tid][i] != null) ? String(S[tid][i]) : ''; }
+  function el(tag, cls, html) { var n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; }
+  function attempts(key) { return (S._att && S._att[key]) || 0; }
+  function addAttempt(key) { if (!S._att) S._att = {}; S._att[key] = attempts(key) + 1; save(); }
+  function setMark(item, state, text, cls) {
+    var m = item.querySelector('.mark'), a = item.querySelector('.answer');
+    if (!m) { m = el('span', 'mark'); item.appendChild(m); }
+    if (!a) { a = el('span', 'answer'); item.appendChild(a); }
+    m.textContent = state; m.className = 'mark ' + (state === '✓' ? 'ok' : state === '✗' ? 'bad' : 'wait');
+    a.textContent = text || ''; a.className = 'answer ' + (cls || '');
+  }
+
+  function renderTask(t) {
+    var sec = el('section', 'task'); sec.setAttribute('data-tid', t.id);
+    sec.appendChild(el('div', 'task-q', '<span class="task-n">' + t.id + '</span><span>' + t.q + '</span>'));
+    var body = el('div', 'task-body'); sec.appendChild(body);
+    if (t.hint) body.appendChild(el('div', 'hint', t.hint));
+    if (t.bank) body.appendChild(el('div', 'bank', t.bank.map(function (w) { return '<span>' + w + '</span>'; }).join('')));
+    if (t.text) body.appendChild(el('div', 'text', t.text));
+    var wrapEl = body;
+    if (t.type === 'tree') { wrapEl = el('div', 'people'); body.appendChild(wrapEl); }
+    t.items.forEach(function (it, i) {
+      var item = el('div', 'it'); item.setAttribute('data-i', i);
+      if (t.type === 'tree') {
+        item.classList.add('person');
+        item.innerHTML = '<img src="' + it.img + '" alt="Член семьи ' + it.n + '"><div><span class="num">' + it.n + '</span></div><input type="text" data-task="' + t.id + '" data-i="' + i + '" aria-label="Член семьи ' + it.n + '" autocomplete="off">';
+      } else if (t.type === 'sort') {
+        item.className = 'it sortrow';
+        item.innerHTML = '<span>' + it.w + '</span><select data-task="' + t.id + '" data-i="' + i + '" aria-label="' + it.w + '"><option value="">выберите</option><option value="m">남자</option><option value="f">여자</option></select><span class="printopts">(남자 / 여자)</span>';
+      } else if (t.type === 'fill') {
+        item.className = 'it row';
+        item.innerHTML = '<span>' + it.pre + '</span>' + (it.a === null ? '' : '<input type="text" data-task="' + t.id + '" data-i="' + i + '" aria-label="ответ" autocomplete="off">') + (it.post ? '<span>' + it.post + '</span>' : '');
+      } else if (t.type === 'choose') {
+        item.className = 'it row';
+        item.innerHTML = '<span>' + it.pre + '</span><select data-task="' + t.id + '" data-i="' + i + '" aria-label="выбор"><option value="">выберите</option>' + it.opts.map(function (o) { return '<option value="' + o + '">' + o + '</option>'; }).join('') + '</select>' + '<span class="printopts">(' + it.opts.join(' / ') + ')</span>' + (it.post ? '<span>' + it.post + '</span>' : '');
+      } else if (t.type === 'sentence') {
+        item.innerHTML = '<div class="hint">' + it.hint + '</div><input type="text" class="wide" data-task="' + t.id + '" data-i="' + i + '" aria-label="предложение" autocomplete="off">';
+      } else if (t.type === 'mcq') {
+        item.innerHTML = '<div class="row"><b>' + it.q + '</b></div>' + (it.text ? '<div class="text">' + it.text + '</div>' : '') +
+          '<div class="row">' + it.opts.map(function (o, k) { return '<label class="opt"><input type="radio" name="' + t.id + '-' + i + '" value="' + k + '" data-task="' + t.id + '" data-i="' + i + '">' + o + '</label>'; }).join('') + '</div>';
+      } else if (t.type === 'can') {
+        item.innerHTML = '<div class="ko" style="font-size:16px">- ' + it.s + '</div><div class="row">' + CAN.map(function (o, k) { return '<label class="opt"><input type="radio" name="' + t.id + '-' + i + '" value="' + k + '" data-task="' + t.id + '" data-i="' + i + '">' + o + '</label>'; }).join('') + '</div>';
+      } else if (t.type === 'my') {
+        item.innerHTML = '<textarea data-task="' + t.id + '" data-i="0" aria-label="моя семья"></textarea>';
+      }
+      item.appendChild(el('span', 'mark')); item.appendChild(el('span', 'answer'));
+      wrapEl.appendChild(item);
+    });
+    return sec;
+  }
+
+  var app = document.getElementById('app');
+  B.forEach(function (b) {
+    var sec = el('section', 'block'); sec.id = b.id;
+    sec.appendChild(el('div', 'block-head', '<h2>' + b.name + '</h2><small>' + b.when + '</small>'));
+    b.tasks.forEach(function (t) { sec.appendChild(renderTask(t)); });
+    sec.appendChild(el('div', 'check no-print', '<button type="button" class="primary" data-check="' + b.id + '">Проверить блок</button><span class="msg" id="m-' + b.id + '" role="status"></span>'));
+    app.appendChild(sec);
+  });
+
+  app.querySelectorAll('[data-task]').forEach(function (c) {
+    var v = val(c.getAttribute('data-task'), c.getAttribute('data-i'));
+    if (c.type === 'radio') c.checked = (c.value === v); else if (v) c.value = v;
+  });
+  function record(e) {
+    var t = e.target;
+    if (!t.getAttribute || !t.getAttribute('data-task')) return;
+    if (t.type === 'radio' && !t.checked) return;
+    var tid = t.getAttribute('data-task'), i = t.getAttribute('data-i');
+    if (!S[tid]) S[tid] = {}; S[tid][i] = t.value; save();
+  }
+  app.addEventListener('input', record); app.addEventListener('change', record);
+
+  function accepted(t, it) { return [it.a].concat(it.alts || []); }
+  function correct(t, it, i) {
+    var v = val(t.id, i);
+    if (t.type === 'tree' || t.type === 'fill') return accepted(t, it).some(function (a) { return norm(a) === norm(v); });
+    if (t.type === 'sentence') return sentKey(v) === sentKey(it.a);
+    if (t.type === 'sort' || t.type === 'choose') return v === it.a;
+    if (t.type === 'mcq') return v === String(it.a);
+    return false;
+  }
+  function label(t, it) {
+    if (t.type === 'sort') return it.a === 'm' ? '남자' : '여자';
+    if (t.type === 'mcq') return it.opts[it.a];
+    return accepted(t, it).join(' / ');
+  }
+
+  app.addEventListener('click', function (e) {
+    var b = e.target.getAttribute && e.target.getAttribute('data-check');
+    if (!b) return;
+    var blk = B.filter(function (x) { return x.id === b; })[0];
+    var total = 0, good = 0, empty = 0, retry = 0;
+    blk.tasks.forEach(function (t) {
+      if (t.type === 'my' || t.type === 'can') return;
+      var sec = app.querySelector('[data-tid="' + t.id + '"]');
+      var items = sec.querySelectorAll('.task-body .it');
+      t.items.forEach(function (it, i) {
+        if (it.a === null || it.a === undefined) return;
+        total++;
+        if (val(t.id, i) === '') { empty++; setMark(items[i], '…', 'Ответ пока не введён.', 'tip'); return; }
+        if (correct(t, it, i)) { good++; setMark(items[i], '✓', ''); return; }
+        var key = t.id + '_' + i; addAttempt(key);
+        if (attempts(key) < 2) { retry++; setMark(items[i], '✗', 'Подсказка: ' + (t.tip || 'проверьте ещё раз') + ' Попробуйте ещё раз.', 'tip'); }
+        else setMark(items[i], '✗', 'Верно: ' + label(t, it), 'bad');
+      });
+    });
+    var msg = 'Верно: ' + good + ' из ' + total + '.';
+    if (good === total) msg += ' Отлично!';
+    else {
+      if (empty) msg += ' Не заполнено: ' + empty + '.';
+      if (retry) msg += ' Подсказки рядом с ответами; исправьте и нажмите кнопку ещё раз.';
+    }
+    document.getElementById('m-' + b).textContent = msg;
+  });
+
+  function collect() {
+    var lines = [];
+    B.forEach(function (b) {
+      b.tasks.forEach(function (t) {
+        var parts = [];
+        if (t.type === 'my') { var v = val(t.id, 0); if (v) parts.push(v); }
+        else if (t.type === 'can') { t.items.forEach(function (it, i) { var k = val(t.id, i); if (k !== '') parts.push(it.s + ': ' + CAN[k]); }); }
+        else if (t.type === 'mcq') { t.items.forEach(function (it, i) { var k = val(t.id, i); if (k !== '') parts.push((i + 1) + ') ' + it.opts[k]); }); }
+        else if (t.type === 'tree') { t.items.forEach(function (it, i) { var v = val(t.id, i); if (v) parts.push(it.n + ' - ' + v); }); }
+        else if (t.type === 'sort') { t.items.forEach(function (it, i) { var v = val(t.id, i); if (v) parts.push(it.w + ' - ' + (v === 'm' ? '남자' : '여자')); }); }
+        else { t.items.forEach(function (it, i) { var v = val(t.id, i); if (v) parts.push((i + 1) + ') ' + v); }); }
+        if (parts.length) lines.push(t.id + ' ' + parts.join('; '));
+      });
+    });
+    return 'Домашняя работа 15-1, мои ответы:\n' + (lines.length ? lines.join('\n') : '(пока пусто)');
+  }
+  document.getElementById('send').addEventListener('click', function () {
+    this.href = 'https://t.me/share/url?url=' + encodeURIComponent(' ') + '&text=' + encodeURIComponent(collect());
+    document.getElementById('sendmsg').textContent = 'Откроется Telegram: выберите чат с преподавателем и нажмите «Отправить».';
+  });
+  document.getElementById('copy').addEventListener('click', function () {
+    var text = collect(), self = this, msg = document.getElementById('sendmsg');
+    function ok() { self.textContent = 'Скопировано'; setTimeout(function () { self.textContent = 'Копировать ответы'; }, 1600); }
+    function fallback() { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (x) { msg.textContent = 'Выделите текст и скопируйте вручную.'; } ta.remove(); }
+    try { navigator.clipboard.writeText(text).then(ok, fallback); } catch (x) { fallback(); }
+  });
+})();
+</script>
+</body></html>
